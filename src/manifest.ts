@@ -1,4 +1,4 @@
-import { defineManifest } from '@crxjs/vite-plugin'
+import {defineManifest} from '@crxjs/vite-plugin'
 
 export default defineManifest({
   name: 'Kao-Chan no Miru Koto',
@@ -22,7 +22,7 @@ export default defineManifest({
   },
   content_scripts: [
     {
-      matches: ['http://*/*', 'https://*/*'],
+      "matches": ["*://www.youtube.com/watch*"],
       js: ['src/content/index.ts'],
     },
   ],
@@ -32,5 +32,5 @@ export default defineManifest({
       matches: [],
     },
   ],
-  permissions: [],
+  permissions: ['tabs', 'storage'],
 })
