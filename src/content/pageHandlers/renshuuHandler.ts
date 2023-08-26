@@ -5,11 +5,10 @@ interface VideoInfo {
 }
 
 export function handleRenshuu({title, channel}: VideoInfo): void {
-  console.log("OK")
   // Set the title and channel
   const titleInput = document.querySelector('input[name="title"]');
   if (titleInput instanceof HTMLInputElement) {
-    titleInput.value = `${title} - ${channel}`;
+    titleInput.value = `[${channel}] ${title}`;
   }
 
   // Check the checkbox
