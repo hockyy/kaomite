@@ -22,8 +22,8 @@ export default defineManifest({
   },
   content_scripts: [
     {
-      "matches": ["*://www.youtube.com/watch*"],
-      js: ['src/content/index.ts'],
+      "matches": ["*://www.youtube.com/watch*", "*://*.renshuu.org/index.php*"],
+      "js": ["src/content/index.ts"]
     },
   ],
   web_accessible_resources: [

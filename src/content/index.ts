@@ -1,27 +1,18 @@
-// This function logs the YouTube video title and channel name to the console
-function getVideoTitleAndChannel() {
-  try {
-    // Get the video title element by its class
-    const titleElement = document.querySelector('h1.style-scope.ytd-watch-metadata yt-formatted-string');
+// Check the hostname and call the appropriate function
+import {handleYouTube} from "./pageHandlers/youtubeHandler";
+import {handleRenshuu} from "./pageHandlers/renshuuHandler";
 
-    // Get the channel name element by its class and ID
-    const channelElement = document.querySelector('ytd-channel-name#channel-name a');
+if (window.location.hostname === "www.youtube.com") {
+  handleYouTube();
+} else if (window.location.href.includes("index.php?page=custom/list_edit&booktype=vocab&action=new")) {
+  chrome.storage.local.get(['latestVideoTitle', 'latestChannelName'], (result) => {
+    const title = result.latestVideoTitle;
+    const channel = result.latestChannelName;
 
-    if (titleElement && channelElement) {
-      const videoTitle = titleElement.textContent.trim();
-      const channelName = channelElement.textContent.trim();
-      console.log(chrome.storage)
-      // Store in Chrome's local storage
-      chrome.storage.local.set({'latestVideoTitle': videoTitle, 'latestChannelName': channelName}, () => {
-        console.log('Video title and channel name saved.');
-      });
+    if (title && channel) {
+      handleRenshuu({title, channel});
     }
-  } catch (e) {
-    console.error("An error occurred:", e);
-  }
+  });
 }
-
-// Run the function to log the video title and channel name after a 5-second delay
-setTimeout(getVideoTitleAndChannel, 2000);
 
 export {}
